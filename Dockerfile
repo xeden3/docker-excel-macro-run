@@ -15,10 +15,10 @@ WORKDIR /opt/wineprefix/drive_c/
 
 COPY libs/tini /tini
 COPY code/demo.py /opt/wineprefix/drive_c/app/
-COPY code/excel_xlsm.py /opt/wineprefix/drive_c/app/
+COPY code/excel_xlsm_macro_run.py /opt/wineprefix/drive_c/app/
 # COPY example.xlsm /opt/wineprefix/drive_c/
 
 RUN chmod +x /tini 
 
 # 设置ENTRYPOINT
-ENTRYPOINT ["/tini", "--", "xvfb-run", "-a", "wine", "python", "/opt/wineprefix/drive_c/app/excel_xlsm.py"]
+ENTRYPOINT ["/tini", "--", "xvfb-run", "-a", "wine", "python", "/opt/wineprefix/drive_c/app/excel_xlsm_macro_run.py"]
