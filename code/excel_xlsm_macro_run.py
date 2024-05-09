@@ -3,12 +3,9 @@ import shutil
 import pythoncom
 import win32com.client
 import json
-
 # 禁用自动初始化 COM
 sys.coinit_flags = 0
-
 def read_excel(xlsm_name, macro_name):
-    print("aaaaaaaa")
     pythoncom.CoInitialize()  # 初始化 COM
     rtval = {"errcode": 0, "errmsg": ""}
     try:
@@ -18,13 +15,10 @@ def read_excel(xlsm_name, macro_name):
 
         # 复制原始文件到临时文件
         shutil.copyfile(xlsm_name, r'c:\tmp.xlsm')
-        print("bbbbbbb")
         excel = win32com.client.Dispatch("Excel.Application")
         excel.Visible = False  # 可选：设置为 True 可以使 Excel 应用程序可见
-        print("ccccccc")
         # 启用宏自动运行
         excel.Application.AutomationSecurity = 1  # 1 表示低安全级别，允许所有宏运行
-        print("dddddddd")
         # 打开 Excel 文件
         workbook = excel.Workbooks.Open(r'c:\tmp.xlsm')
         """
@@ -49,12 +43,8 @@ def read_excel(xlsm_name, macro_name):
             print(row)
 
         """
-        print("eeeeeeee")
         excel.Application.Run(macro_name)
-        print("ffffffff")
         workbook.Save()
-        print("ggggggggggg")
-
         # 关闭 Excel 文件
         workbook.Close()
         excel.Application.Quit()
