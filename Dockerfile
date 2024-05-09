@@ -14,11 +14,12 @@ ENV LC_ALL=zh_CN.UTF-8
 WORKDIR /opt/wineprefix/drive_c/
 
 COPY libs/tini /tini
-COPY code/demo.py /opt/wineprefix/drive_c/app/
 COPY code/excel_xlsm_macro_run.py /opt/wineprefix/drive_c/app/
-# COPY example.xlsm /opt/wineprefix/drive_c/
+COPY code/entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /tini 
+RUN chmod +x /tini && \
+    chmod +x /entrypoint.sh
 
 # 设置ENTRYPOINT
-ENTRYPOINT ["/tini", "--", "xvfb-run", "-a", "wine", "python", "/opt/wineprefix/drive_c/app/excel_xlsm_macro_run.py"]
+# ENTRYPOINT ["/tini", "--", "xvfb-run", "-a", "wine", "python", "/opt/wineprefix/drive_c/app/excel_xlsm_macro_run.py"]
+ENTRYPOINT ["/tini", "--", "/entrypoint.sh"]
